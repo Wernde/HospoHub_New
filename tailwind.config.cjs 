@@ -1,0 +1,22 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{ts,tsx,js,jsx}",
+  ],
+  theme: {
+    extend: {
+      // Optional: If you want to use custom fonts, define them here.
+      fontFamily: {
+        script: ["YourScriptFont", "cursive"],
+        sans: ["YourSansFont", "sans-serif"],
+      },
+      // Optional: custom brand colours
+      colors: {
+        primary: "#E63946",
+        secondary: "#457B9D",
+      },
+    },
+  },
+  plugins: [],
+};
