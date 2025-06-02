@@ -6,35 +6,34 @@ const Landing: React.FC = () => {
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      {/* Background Image */}
+      {/* Full‐screen background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url(/start-bg.jpg)" }}
       />
 
-      {/* Semi-transparent Overlay */}
+      {/* Semi‐transparent overlay to darken the background slightly */}
       <div className="absolute inset-0 bg-black bg-opacity-50" />
 
-      {/* Content Container (logo + buttons) */}
+      {/* Centered content (logo + buttons) */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
-        {/* Logo Image */}
+        {/* Your logo (ensure exact file name in public/) */}
         <img
           src="/Logo HospoHub.png"
           alt="HospoHUB Logo"
           className="w-72 md:w-96 drop-shadow-lg"
         />
 
-        {/* Buttons below the logo */}
+        {/* Buttons underneath */}
         <div className="mt-12 flex flex-col sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0">
-          {/* SIGN IN Button */}
+          {/* SIGN IN */}
           <button
             onClick={() => navigate("/login")}
             className="px-8 py-3 border border-white rounded-md text-lg text-white hover:bg-white hover:text-black transition"
           >
             SIGN IN
           </button>
-
-          {/* HOSPOHOUSE Button */}
+          {/* HOSPOHOUSE */}
           <button
             onClick={() => navigate("/hospohouse")}
             className="px-8 py-3 border border-white rounded-md text-lg text-white hover:bg-white hover:text-black transition"

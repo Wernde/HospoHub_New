@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    window.location.href = "/"; // redirect back to landing
+    window.location.href = "/";
   };
 
   if (!profile) {
@@ -34,7 +34,6 @@ const Dashboard: React.FC = () => {
       >
         Sign Out
       </button>
-      {/* Add more dashboard content here */}
     </div>
   );
 };
