@@ -1,12 +1,33 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import { supabase } from "./integrations/supabaseClient";
 
 function App() {
-  // Simple test-to-console on mount
+  // Keep track of the authenticated session in React state
+  const [session, setSession] = useState(supabase.auth.session());
+
+  // Subscribe to auth‐state changes on mount
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, newSession) => {
+        setSession(newSession);
+      }
+    );
+    // Cleanup subscription on unmount
+    return () => {
+      authListener?.unsubscribe();
+    };
+  }, []);
+
+  // (Optional) A one‐time test to console.log all users
   useEffect(() => {
     supabase
       .from("users")
@@ -15,9 +36,6 @@ function App() {
         console.log("Users:", data, error);
       });
   }, []);
-
-  // Check for an authenticated session
-  const session = supabase.auth.session();
 
   return (
     <Router>
@@ -28,10 +46,10 @@ function App() {
         {/* Login route */}
         <Route path="/login" element={<Login />} />
 
-        {/* Dashboard if authenticated; else redirect back to Landing */}
+        {/* Dashboard if authenticated; otherwise redirect back to Landing */}
         <Route
           path="/dashboard"
-          element={session ? <Dashboard /> : <Navigate to="/" />}
+          element={session ? <Dashboard /> : <Navigate to="/" replace />}
         />
 
         {/* Placeholder for HospoHouse */}
@@ -44,8 +62,8 @@ function App() {
           }
         />
 
-        {/* Redirect any unknown route back to Landing */}
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* Catch-all: redirect any unknown route to Landing */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

@@ -1,13 +1,12 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{ts,tsx,js,jsx}"
-  ],
   theme: {
     extend: {
-      // (Optional) custom font families or colors here
-    }
+      fontFamily: {
+        sans: ["Roboto", "sans-serif"],
+        script: ["YourScriptFont", "cursive"],
+      },
+    },
   },
-  plugins: []
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  plugins: [],
 };

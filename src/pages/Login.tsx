@@ -6,13 +6,19 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const { error } = await supabase.auth.signIn({ email, password });
-    if (error) {
-      setError(error.message);
+    setError(null);
+    setLoading(true);
+
+    const { error: signInError } = await supabase.auth.signIn({ email, password });
+    setLoading(false);
+
+    if (signInError) {
+      setError(signInError.message);
     } else {
       navigate("/dashboard");
     }
@@ -22,30 +28,48 @@ const Login: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-6 text-center">Sign In</h2>
-        <form onSubmit={handleSubmit}>
-          <label className="block mb-2 text-gray-700">Email</label>
+        <form onSubmit={handleSubmit} noValidate>
+          <label htmlFor="email" className="block mb-2 text-gray-700">
+            Email
+          </label>
           <input
+            id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
             className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring focus:border-indigo-500"
+            aria-describedby="emailHelp"
           />
 
-          <label className="block mb-2 text-gray-700">Password</label>
+          <label htmlFor="password" className="block mb-2 text-gray-700">
+            Password
+          </label>
           <input
+            id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
             className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring focus:border-indigo-500"
+            aria-describedby="passwordHelp"
           />
 
-          {error && <p className="text-red-500 mb-4">{error}</p>}
+          {error && (
+            <p id="loginError" className="text-red-500 mb-4">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
+            disabled={loading}
+            className={`w-full ${
+              loading ? "bg-indigo-400" : "bg-indigo-600 hover:bg-indigo-700"
+            } text-white py-2 rounded transition-colors`}
+            aria-busy={loading}
           >
-            Log In
+            {loading ? "Logging In…" : "Log In"}
           </button>
         </form>
       </div>

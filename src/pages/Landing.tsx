@@ -12,31 +12,34 @@ const Landing: React.FC = () => {
         style={{ backgroundImage: "url(/start-bg.jpg)" }}
       />
 
-      {/* Semi‐transparent overlay to darken the background slightly */}
-      <div className="absolute inset-0 bg-black bg-opacity-50" />
+      {/* Slightly lighter dark overlay (40% opacity) */}
+      <div className="absolute inset-0 bg-black bg-opacity-40" />
 
       {/* Centered content (logo + buttons) */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
-        {/* Your logo (ensure exact file name in public/) */}
+        {/* Updated logo filename (no spaces). Ensure you have renamed the file to 'logo-hospohub.png' in /public */}
         <img
-          src="/Logo HospoHub.png"
+          src="/logo-hospohub.png"
           alt="HospoHUB Logo"
           className="w-72 md:w-96 drop-shadow-lg"
         />
 
-        {/* Buttons underneath */}
+        {/* Buttons underneath (stack on very small screens, row on sm+) */}
         <div className="mt-12 flex flex-col sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0">
           {/* SIGN IN */}
           <button
             onClick={() => navigate("/login")}
-            className="px-8 py-3 border border-white rounded-md text-lg text-white hover:bg-white hover:text-black transition"
+            aria-label="Navigate to sign-in page"
+            className="px-8 py-3 border border-white rounded-md text-lg text-white hover:bg-white hover:text-black transition-colors"
           >
             SIGN IN
           </button>
+
           {/* HOSPOHOUSE */}
           <button
             onClick={() => navigate("/hospohouse")}
-            className="px-8 py-3 border border-white rounded-md text-lg text-white hover:bg-white hover:text-black transition"
+            aria-label="Navigate to HospoHouse page"
+            className="px-8 py-3 border border-white rounded-md text-lg text-white hover:bg-white hover:text-black transition-colors"
           >
             HOSPOHOUSE
           </button>
