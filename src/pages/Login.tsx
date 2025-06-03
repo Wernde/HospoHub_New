@@ -60,7 +60,7 @@ const Login: React.FC = () => {
           />
 
           {error && (
-            <p id="loginError" className="text-red-500 mb-4">
+            <p id="loginError\" className="text-red-500 mb-4">
               {error}
             </p>
           )}
