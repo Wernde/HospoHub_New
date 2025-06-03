@@ -9,50 +9,36 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import { supabase } from "./integrations/supabaseClient";
+import { Session } from "@supabase/supabase-js";
 
 function App() {
-  // Keep track of the authenticated session in React state
-  const [session, setSession] = useState(supabase.auth.session());
+  const [session, setSession] = useState<Session | null>(null);
 
-  // Subscribe to auth‐state changes on mount
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, newSession) => {
-        setSession(newSession);
-      }
-    );
-    // Cleanup subscription on unmount
-    return () => {
-      authListener?.unsubscribe();
-    };
-  }, []);
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
 
-  // (Optional) A one‐time test to console.log all users
-  useEffect(() => {
-    supabase
-      .from("users")
-      .select("id, email")
-      .then(({ data, error }) => {
-        console.log("Users:", data, error);
-      });
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
     <Router>
       <Routes>
-        {/* Landing screen at root */}
         <Route path="/" element={<Landing />} />
-
-        {/* Login route */}
         <Route path="/login" element={<Login />} />
-
-        {/* Dashboard if authenticated; otherwise redirect back to Landing */}
         <Route
           path="/dashboard"
           element={session ? <Dashboard /> : <Navigate to="/" replace />}
         />
-
-        {/* Placeholder for HospoHouse */}
         <Route
           path="/hospohouse"
           element={
@@ -61,12 +47,8 @@ function App() {
             </div>
           }
         />
-
-        {/* Catch-all: redirect any unknown route to Landing */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
 }
-
-export default App;

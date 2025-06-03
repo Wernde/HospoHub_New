@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../integrations/supabaseClient";
+import { User } from "@supabase/supabase-js";
 
 interface UserProfile {
   id: string;
@@ -10,10 +11,11 @@ const Dashboard: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
   useEffect(() => {
-    const user = supabase.auth.user();
-    if (user) {
-      setProfile({ id: user.id, email: user.email! });
-    }
+    const user = supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        setProfile({ id: user.id, email: user.email! });
+      }
+    });
   }, []);
 
   const handleSignOut = async () => {
