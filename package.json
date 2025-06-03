@@ -2,9 +2,6 @@
   "name": "hospohub-new",
   "version": "0.0.0",
   "private": true,
-  "env": {
-    "VITE_SUPABASE_URL": "https://jwaiqnhqjyazxgqvqrsv.supabase.co",
-    "VITE_SUPABASE_ANON_KEY": "  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
