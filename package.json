@@ -4,8 +4,7 @@
   "private": true,
   "env": {
     "VITE_SUPABASE_URL": "https://jwaiqnhqjyazxgqvqrsv.supabase.co",
-    "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3YWlxbmhxanlhenhncXZxcnN2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0Mjg4NjYyOSwiZXhwIjoyMDU4NDYyNjI5fQ.7a2DFf_nPh5iW8wVWG2ToFIIkMp_YV6Kd9uTAFFpzDo"
-  },
+    "VITE_SUPABASE_ANON_KEY": "  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
