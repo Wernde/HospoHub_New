@@ -37,7 +37,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route
           path="/dashboard"
-          element={session ? <Dashboard /> : <Navigate to="/\" replace />}
+          element={session ? <Dashboard /> : <Navigate to="/" replace />}
         />
         <Route
           path="/hospohouse"
@@ -47,10 +47,10 @@ function App() {
             </div>
           }
         />
-        <Route path="*" element={<Navigate to="/\" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
 }
 
-export default App
+export default App;
